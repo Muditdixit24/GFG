@@ -1,34 +1,26 @@
 class Solution {
     public int kokoEat(int[] arr, int k) {
         // code here
-        int left = 1;
-        int right = 0;
-
-        // find max pile
-        for (int p : arr) {
-            right = Math.max(right, p);
-        }
-
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-
-            if (canFinish(arr, k, mid)) {
-                right = mid;
-            } else {
-                left = mid + 1;
+        int low=1;
+        int high=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]>high){
+                high= arr[i];
             }
         }
-
-        return left;
-    }
-
-    private boolean canFinish(int[] arr, int k, int speed) {
-        int hours = 0;
-
-        for (int p : arr) {
-            hours += (p + speed - 1) / speed; // ceiling division
+        while(low<high){
+            int mid= low +(high-low)/2;
+            int hours=0;
+            for(int i=0;i<arr.length;i++){
+                hours= hours+(arr[i]+mid-1)/mid;
+            }
+            if(hours<=k){
+                high= mid;
+            }
+            else{
+                low = mid+1;
+            }
         }
-
-        return hours <= k;
+        return low;
     }
 }
