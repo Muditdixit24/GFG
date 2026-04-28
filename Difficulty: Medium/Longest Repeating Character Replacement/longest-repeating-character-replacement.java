@@ -1,30 +1,26 @@
-// User function Template for Java
-
 class Solution {
-    static int characterReplacement(String s, int k) {
+    public int longestSubstr(String s, int k) {
         // code here
-         int n=s.length();
-        int left=0;
-        int right=0;
-        int maxlength=0;
-        int maxfreq=0;
-        int[]freq=new int[26];
-        while(right<n){
-           char ch= s.charAt(right);
-           freq[ch-'A']++;
-           if(freq[ch-'A']>maxfreq){
-            maxfreq=freq[ch-'A'];
-           }
-           int result= right-left+1;
-           while(result-maxfreq>k){
-            char leftchar= s.charAt(left);
-            freq[leftchar-'A']--;
-            left++;
-            result= right-left+1;
-           }
-           maxlength= Math.max(maxlength,result);
-           right++;
+        int[] freq = new int[26];
+        int left = 0, maxFreq = 0, maxLen = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+            freq[ch - 'A']++;
+
+            
+            maxFreq = Math.max(maxFreq, freq[ch - 'A']);
+
+            
+            while ((right - left + 1) - maxFreq > k) {
+                freq[s.charAt(left) - 'A']--;
+                left++;
+            }
+
+            
+            maxLen = Math.max(maxLen, right - left + 1);
         }
-        return maxlength;
+
+        return maxLen;
     }
 }
