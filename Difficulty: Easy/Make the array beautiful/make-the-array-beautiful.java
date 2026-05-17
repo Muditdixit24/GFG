@@ -1,0 +1,23 @@
+import java.util.*;
+
+class Solution {
+    List<Integer> makeBeautiful(int[] arr) {
+        
+        Stack<Integer> st = new Stack<>();
+        
+        for (int num : arr) {
+            
+            if (!st.isEmpty() && 
+               ((st.peek() >= 0 && num < 0) || 
+                (st.peek() < 0 && num >= 0))) {
+                
+                st.pop();
+            } 
+            else {
+                st.push(num);
+            }
+        }
+        
+        return new ArrayList<>(st);
+    }
+}
